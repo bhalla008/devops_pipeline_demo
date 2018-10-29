@@ -1,0 +1,19 @@
+pipeline {
+    agent { any } 
+    stages {
+             stage('Checkout external proj') {
+                
+                        git branch: 'feature',
+                        credentialsId: 'devsuri',
+                        url: 'https://github.com/devsuri/devops_pipeline_demo.git'
+                        
+             }
+             stage('Install Maven') {
+                         sh 'mvn install'
+             }
+             stage('Build') {
+                         sh 'mvn clean verify -P integration-test'
+             }
+}
+}
+
